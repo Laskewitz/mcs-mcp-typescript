@@ -9,8 +9,8 @@ const server = new McpServer({
   version: "1.0.0",
   tools: [
     {
-      name: "hello-world",
-      description: "This is a hello world tool",
+      name: "echo",
+      description: "This tool echoes back a message",
       parameters: {},
     },
   ],
