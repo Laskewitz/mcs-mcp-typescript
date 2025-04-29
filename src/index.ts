@@ -1,29 +1,39 @@
 import express, { Request, Response } from "express";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
+import { z } from "zod";
 
 const server = new McpServer({
-  name: "hello-world-server",
-  description: "This server returns a hello world message",
+  name: "weather-server",
+  description: "Returns the current weather for a given location",
   version: "1.0.0",
-  tools: [
-    {
-      name: "hello-world",
-      description: "Returns a hello world message",
-      parameters: {},
-    },
-  ],
 });
 
-// Add an hello world tool
-server.tool("hello-world", "Returns a hello world message", {}, async () => ({
-  content: [
-    {
-      type: "text",
-      text: "Hello, World!",
-    },
-  ],
-}));
+// This is a fake weather tool
+server.tool(
+  "weather",
+  "Returns the current weather for a given location",
+  {
+    location: z.string().describe("The location to get the weather for"),
+  },
+  async ({ location }) => {
+    // Mock weather data for demonstration purposes
+    const weatherData = {
+      location,
+      temperature: "25°C",
+      condition: "Sunny",
+    };
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: `The current weather in ${weatherData.location} is ${weatherData.temperature} and ${weatherData.condition}.`,
+        },
+      ],
+    };
+  }
+);
 
 const app = express();
 
