@@ -9,27 +9,23 @@ const server = new McpServer({
   version: "1.0.0",
   tools: [
     {
-      name: "echo",
-      description: "This tool echoes back a message",
+      name: "hello-world",
+      description: "Returns a hello world message",
       parameters: {},
     },
   ],
 });
 
-// Add an echo tool
-server.tool(
-  "echo",
-  "Echoes back a message",
-  { message: z.string().describe("The message to echo") },
-  async ({ message }: { message: string }) => ({
-    content: [
-      {
-        type: "text",
-        text: `You said: ${message}`,
-      },
-    ],
-  })
-);
+// Add an hello world tool
+server.tool("hello-world", "Returns a hello world message", {}, async () => ({
+  content: [
+    {
+      type: "text",
+      text: "Hello, World!",
+    },
+  ],
+}));
+
 const app = express();
 
 // to support multiple simultaneous connections we have a lookup object from
