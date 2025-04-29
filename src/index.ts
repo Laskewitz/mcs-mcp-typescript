@@ -4,8 +4,8 @@ import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import { z } from "zod";
 
 const server = new McpServer({
-  name: "serverName",
-  description: "A description of the server",
+  name: "hello-world-server",
+  description: "This server returns a hello world message",
   version: "1.0.0",
   tools: [
     {
